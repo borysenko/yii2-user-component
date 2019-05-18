@@ -1,0 +1,23 @@
+{
+  "name": "borysenko/yii2-user-component",
+  "description": "Yii2 User component",
+  "keywords": [
+    "User",
+    "UserComponent",
+    "yii2"
+  ],
+  "homepage": "https://github.com/borysenko/yii2-user-component",
+  "support": {
+    "source": "https://github.com/borysenko/yii2-user-component"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "borysenko\\UserComponent\\": ""
+    }
+  }
+}
