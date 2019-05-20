@@ -9,22 +9,11 @@ use yii\web\IdentityInterface;
 class User extends \yii\web\User
 {
 
-    protected function renewIdentityCookie()
+    public function init()
     {
+        $this->enableAutoLogin = true;
         $this->getIdentityAndDurationFromCookie();
-        $name = $this->identityCookie['name'];
-        $value = Yii::$app->getRequest()->getCookies()->getValue($name);
-        if ($value !== null) {
-            $data = json_decode($value, true);
-            if (is_array($data) && isset($data[2])) {
-                $cookie = Yii::createObject(array_merge($this->identityCookie, [
-                    'class' => 'yii\web\Cookie',
-                    'value' => $value,
-                    'expire' => time() + (int) $data[2],
-                ]));
-                Yii::$app->getResponse()->getCookies()->add($cookie);
-            }
-        }
+        parent::init();
     }
 
     protected function getIdentityAndDurationFromCookie()
@@ -46,7 +35,6 @@ class User extends \yii\web\User
                     if(Yii::$app->session->has($this->idParam)) {
                         Yii::$app->session->remove($this->idParam);
                         $this->removeIdentityCookie();
-                        return Yii::$app->response->redirect(['/']);
                     }
                 } else {
                     return ['identity' => $identity, 'duration' => $duration];
